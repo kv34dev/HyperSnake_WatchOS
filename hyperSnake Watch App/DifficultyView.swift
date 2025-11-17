@@ -7,9 +7,10 @@ struct DifficultyView: View {
     @State private var goToGame = false
     
     let difficulties: [(String, Int)] = [
-        ("Easy", 5),
-        ("Normal", 7),
-        ("Hard", 15)
+        //("Very Easy", 1), //test
+        ("Easy", 2),
+        ("Normal", 4),
+        ("Hard", 7)
     ]
     
     var body: some View {
@@ -50,13 +51,13 @@ struct DifficultyView: View {
                 isActive: $goToGame
             ) { EmptyView() }
             
-            Button(action: { goToGame = true }) {
-                Text("START")
-                    .font(.system(size: 22, weight: .bold))
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(Color.blue)
+//            Button(action: { goToGame = true }) {
+//                Text("START")
+//                    .font(.system(size: 22, weight: .bold))
+//                    .frame(maxWidth: .infinity)
+//            }
+//            .buttonStyle(.borderedProminent)
+//            .tint(Color.blue)
         }
         .padding()
         .background(Color(red: 0.05, green: 0.05, blue: 0.07))
