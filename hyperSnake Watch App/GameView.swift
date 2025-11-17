@@ -48,6 +48,24 @@ struct GameView: View {
             }
         }
         .padding()
+        .background(Color(red: 0.12, green: 0.12, blue: 0.14))
+        .gesture(
+            DragGesture(minimumDistance: 10)
+                .onEnded { value in
+                    let dx = value.translation.width
+                    let dy = value.translation.height
+                    
+                    if abs(dx) > abs(dy) {
+                        // Горизонтальный свайп
+                        if dx > 0 && dir.x == 0 { dir = CGPoint(x: 1, y: 0) }      // вправо
+                        if dx < 0 && dir.x == 0 { dir = CGPoint(x: -1, y: 0) }     // влево
+                    } else {
+                        // Вертикальный свайп
+                        if dy > 0 && dir.y == 0 { dir = CGPoint(x: 0, y: 1) }      // вниз
+                        if dy < 0 && dir.y == 0 { dir = CGPoint(x: 0, y: -1) }     // вверх
+                    }
+                }
+        )
         .onAppear { startLoop() }
     }
     
@@ -80,8 +98,10 @@ struct GameView: View {
     }
     
     func spawnFood() {
-        food = CGPoint(x: CGFloat(Int.random(in: 0..<gridSize)),
-                       y: CGFloat(Int.random(in: 0..<gridSize)))
+        food = CGPoint(
+            x: CGFloat(Int.random(in: 0..<gridSize)),
+            y: CGFloat(Int.random(in: 0..<gridSize))
+        )
     }
     
     func restart() {
