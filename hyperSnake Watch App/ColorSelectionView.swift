@@ -8,13 +8,13 @@ struct ColorSelectionView: View {
     
     let snakeColors: [(String, Color)] = [
         ("Red", Color(.sRGB, red: 1, green: 0.27, blue: 0.27)),
-        ("Orange", Color(.sRGB, red: 1, green: 0.59, blue: 0.24)),
-        ("Yellow", Color(.sRGB, red: 1, green: 0.88, blue: 0.31)),
         ("Green", Color(.sRGB, red: 0.22, green: 1, blue: 0.078)),
-        ("Cyan", Color.cyan),
-        ("Blue", Color(.sRGB, red: 0, green: 0.47, blue: 1)),
         ("Purple", Color(.sRGB, red: 0.70, green: 0.35, blue: 1)),
+        ("Orange", Color(.sRGB, red: 1, green: 0.59, blue: 0.24)),
+        ("Cyan", Color.cyan),
         ("Pink", Color(.sRGB, red: 1, green: 0.39, blue: 0.78)),
+        ("Yellow", Color(.sRGB, red: 1, green: 0.88, blue: 0.31)),
+        ("Blue", Color(.sRGB, red: 0, green: 0.47, blue: 1)),
         ("White", Color(.sRGB, red: 0.94, green: 0.94, blue: 0.94))
     ]
     
