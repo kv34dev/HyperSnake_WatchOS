@@ -19,60 +19,60 @@ struct ColorSelectionView: View {
     ]
     
     var body: some View {
-        VStack(spacing: 10) {
-            
-            Text("HyperSnake")
-                .font(.system(size: 28, weight: .bold))
-                .foregroundColor(Color(red: 0.93, green: 0.93, blue: 1))
-                .padding(.top, 6)
-            
-            // Карточка цветов
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Snake Color")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundStyle(.white)
+        ScrollView { // прокрутка
+            VStack(spacing: 10) {
                 
-                // Сетка 3×3
-                LazyVGrid(columns: Array(repeating: GridItem(.fixed(45), spacing: 6), count: 3), spacing: 10) {
-                    ForEach(snakeColors, id: \.0) { name, col in
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 8)
-                                .fill(col)
-                                .frame(width: 42, height: 42)
-                            
-                            if selectedColor == col {
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.white, lineWidth: 3)
-                                    .frame(width: 42, height: 42)
+                Text("HyperSnake")
+                    .font(.system(size: 28, weight: .bold))
+                    .foregroundColor(Color(red: 0.93, green: 0.93, blue: 1))
+                    .padding(.top, 6)
+                
+                // Карточка цветов
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Snake Color")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundStyle(.white)
+                    
+                    // Сетка 3×3
+                    LazyVGrid(columns: Array(repeating: GridItem(.fixed(36), spacing: 6), count: 3), spacing: 10) {
+                        ForEach(snakeColors, id: \.0) { name, col in
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 6)
+                                    .fill(col)
+                                    .frame(width: 32, height: 32)
+                                
+                                if selectedColor == col {
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .stroke(Color.white, lineWidth: 2)
+                                        .frame(width: 32, height: 32)
+                                }
                             }
-                        }
-                        .onTapGesture {
-                            selectedColor = col
+                            .onTapGesture {
+                                selectedColor = col
+                            }
                         }
                     }
                 }
+                .padding(10)
+                .background(Color(red: 0.12, green: 0.12, blue: 0.16))
+                .cornerRadius(14)
+                
+                NavigationLink(destination:
+                    DifficultyView(selectedColor: $selectedColor,
+                                   selectedSpeed: $selectedSpeed),
+                    isActive: $goToDifficulty
+                ) { EmptyView() }
+                
+                Button(action: {
+                    goToDifficulty = true
+                }) {
+                    Text("Next") //текст на кнопке
+                        .font(.system(size: 20, weight: .bold))
+                        .frame(maxWidth: .infinity)
+                }
             }
-            .padding(10)
-            .background(Color(red: 0.12, green: 0.12, blue: 0.16))
-            .cornerRadius(14)
-            
-            NavigationLink(destination:
-                DifficultyView(selectedColor: $selectedColor,
-                               selectedSpeed: $selectedSpeed),
-                isActive: $goToDifficulty
-            ) { EmptyView() }
-            
-            Button(action: {
-                goToDifficulty = true
-            }) {
-                Text("Next")
-                    .font(.system(size: 20, weight: .bold))
-                    .frame(maxWidth: .infinity)
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(Color.blue)
+            .padding()
         }
-        .padding()
         .background(Color(red: 0.05, green: 0.05, blue: 0.07))
     }
 }
