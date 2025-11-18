@@ -19,23 +19,22 @@ struct ColorSelectionView: View {
     ]
     
     var body: some View {
-        ScrollView { // прокрутка
+        ScrollView {
             VStack(spacing: 10) {
                 
                 Text("HyperSnake")
                     .font(.system(size: 28, weight: .bold))
-                    .foregroundColor(Color(red: 0.93, green: 0.93, blue: 1))
+                    .foregroundColor(.white)
                     .padding(.top, 6)
                 
                 // Карточка цветов
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Snake Color")
                         .font(.system(size: 18, weight: .bold))
-                        .foregroundStyle(.white)
+                        .foregroundColor(.white)
                     
-                    // Сетка 3×3
-                    LazyVGrid(columns: Array(repeating: GridItem(.fixed(36), spacing: 6), count: 3), spacing: 10) {
-                        ForEach(snakeColors, id: \.0) { name, col in
+                    LazyVGrid(columns: Array(repeating: GridItem(.fixed(36), spacing: 6), count: 3)) {
+                        ForEach(snakeColors, id: \.0) { _, col in
                             ZStack {
                                 RoundedRectangle(cornerRadius: 6)
                                     .fill(col)
@@ -47,9 +46,7 @@ struct ColorSelectionView: View {
                                         .frame(width: 32, height: 32)
                                 }
                             }
-                            .onTapGesture {
-                                selectedColor = col
-                            }
+                            .onTapGesture { selectedColor = col }
                         }
                     }
                 }
@@ -57,16 +54,10 @@ struct ColorSelectionView: View {
                 .background(Color(red: 0.12, green: 0.12, blue: 0.16))
                 .cornerRadius(14)
                 
-                NavigationLink(destination:
-                    DifficultyView(selectedColor: $selectedColor,
-                                   selectedSpeed: $selectedSpeed),
-                    isActive: $goToDifficulty
-                ) { EmptyView() }
-                
-                Button(action: {
+                Button {
                     goToDifficulty = true
-                }) {
-                    Text("Next") //текст на кнопке
+                } label: {
+                    Text("Next")
                         .font(.system(size: 20, weight: .bold))
                         .frame(maxWidth: .infinity)
                 }
@@ -74,5 +65,8 @@ struct ColorSelectionView: View {
             .padding()
         }
         .background(Color(red: 0.05, green: 0.05, blue: 0.07))
+        .navigationDestination(isPresented: $goToDifficulty) {
+            DifficultyView(selectedColor: $selectedColor, selectedSpeed: $selectedSpeed)
+        }
     }
 }
