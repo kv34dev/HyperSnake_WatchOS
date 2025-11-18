@@ -20,7 +20,7 @@ struct DifficultyView: View {
                 VStack(alignment: .leading, spacing: 12) {
                     Text("Difficulty")
                         .font(.system(size: 18, weight: .bold))
-                        .foregroundStyle(.white)
+                        .foregroundColor(.white)
                     
                     ForEach(difficulties, id: \.0) { name, speed in
                         VStack(alignment: .leading, spacing: 2) {
@@ -44,14 +44,11 @@ struct DifficultyView: View {
                 .background(Color(red: 0.12, green: 0.12, blue: 0.16))
                 .cornerRadius(14)
                 
-                NavigationLink(
-                    destination:
-                        GameView(snakeColor: selectedColor,
-                                 speed: selectedSpeed),
-                    isActive: $goToGame
-                ) { EmptyView() }
                 
-                Button(action: { goToGame = true }) {
+                // Кнопка запуска игры
+                Button(action: {
+                    goToGame = true
+                }) {
                     Text("START")
                         .font(.system(size: 22, weight: .bold))
                         .frame(maxWidth: .infinity)
@@ -62,5 +59,8 @@ struct DifficultyView: View {
             .padding()
         }
         .background(Color(red: 0.05, green: 0.05, blue: 0.07))
+        .navigationDestination(isPresented: $goToGame) {
+            GameView(snakeColor: selectedColor, speed: selectedSpeed)
+        }
     }
 }
