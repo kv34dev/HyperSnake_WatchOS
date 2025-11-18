@@ -29,10 +29,10 @@ struct GameView: View {
                     
                     ZStack {
                         // Обводка поля
-                        RoundedRectangle(cornerRadius: 4)
-                            .stroke(Color.gray, lineWidth: 3)
-                            .frame(width: geo.size.width, height: geo.size.width)
-                            .position(x: geo.size.width / 2, y: geo.size.width / 2)
+//                        RoundedRectangle(cornerRadius: 4)
+//                            .stroke(Color.gray, lineWidth: 3)
+//                            .frame(width: geo.size.width, height: geo.size.width)
+//                            .position(x: geo.size.width / 2, y: geo.size.width / 2)
 
                         // Еда
                         RoundedRectangle(cornerRadius: 4)
