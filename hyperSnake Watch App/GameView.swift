@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 struct GameView: View {
     let snakeColor: Color
@@ -12,11 +13,18 @@ struct GameView: View {
     
     let gridSize = 12
     
+    // Значение Digital Crown
+    @State private var crownValue: Double = 0
+    @State private var lastCrownValue: Double = 0
+    @State private var accumulatedDelta: Double = 0
+    
+    let crownThreshold: Double = 10
+    
     var body: some View {
         VStack {
             if gameOver {
                 Text("Game Over")
-                    .font(.system(size: 26, weight: .bold))
+                    .font(.system(size: 20, weight: .bold))
                     .foregroundColor(.red)
                 
                 Button("Restart") {
@@ -48,25 +56,43 @@ struct GameView: View {
             }
         }
         .padding()
-        //.background(Color(red: 0.12, green: 0.12, blue: 0.14))
-        .gesture(
-            DragGesture(minimumDistance: 10)
-                .onEnded { value in
-                    let dx = value.translation.width
-                    let dy = value.translation.height
-                    
-                    if abs(dx) > abs(dy) {
-                        // Горизонтальный свайп
-                        if dx > 0 && dir.x == 0 { dir = CGPoint(x: 1, y: 0) }      // вправо
-                        if dx < 0 && dir.x == 0 { dir = CGPoint(x: -1, y: 0) }     // влево
-                    } else {
-                        // Вертикальный свайп
-                        if dy > 0 && dir.y == 0 { dir = CGPoint(x: 0, y: 1) }      // вниз
-                        if dy < 0 && dir.y == 0 { dir = CGPoint(x: 0, y: -1) }     // вверх
-                    }
-                }
-        )
+        // Привязка вращения Digital Crown
+        .focusable(true)
+        .digitalCrownRotation($crownValue, from: -100, through: 100, by: 1, sensitivity: .medium, isContinuous: true, isHapticFeedbackEnabled: true)
+        .onChange(of: crownValue) { newValue in
+            handleCrownRotation(newValue: newValue)
+        }
         .onAppear { startLoop() }
+    }
+    
+    func handleCrownRotation(newValue: Double) {
+        let delta = newValue - lastCrownValue
+        lastCrownValue = newValue
+        
+        accumulatedDelta += delta
+        
+        if accumulatedDelta >= crownThreshold {
+            rotateClockwise()
+            accumulatedDelta = 0
+        } else if accumulatedDelta <= -crownThreshold {
+            rotateCounterClockwise()
+            accumulatedDelta = 0
+        }
+    }
+
+    
+    func rotateClockwise() {
+        if dir.x == 1 { dir = CGPoint(x: 0, y: 1) }
+        else if dir.x == -1 { dir = CGPoint(x: 0, y: -1) }
+        else if dir.y == 1 { dir = CGPoint(x: -1, y: 0) }
+        else if dir.y == -1 { dir = CGPoint(x: 1, y: 0) }
+    }
+    
+    func rotateCounterClockwise() {
+        if dir.x == 1 { dir = CGPoint(x: 0, y: -1) }
+        else if dir.x == -1 { dir = CGPoint(x: 0, y: 1) }
+        else if dir.y == 1 { dir = CGPoint(x: 1, y: 0) }
+        else if dir.y == -1 { dir = CGPoint(x: -1, y: 0) }
     }
     
     func startLoop() {
@@ -107,6 +133,9 @@ struct GameView: View {
     func restart() {
         snake = [CGPoint(x: 5, y: 5)]
         dir = CGPoint(x: 1, y: 0)
+        crownValue = 0
+        lastCrownValue = 0
+        accumulatedDelta = 0
         spawnFood()
         gameOver = false
     }
