@@ -29,12 +29,12 @@ Available difficulty modes:
 
 Each difficulty changes the snake’s speed.
 
-### Swipe-Based Movement
-Control the snake by swiping in any direction:
-- Swipe left → move left  
-- Swipe right → move right  
-- Swipe up → move up  
-- Swipe down → move down  
+### Digital Crown-Based Movement
+Control the snake by rotating the Digital Crown on your Apple Watch:
+- Rotate clockwise → turn the snake 90° clockwise  
+- Rotate counterclockwise → turn the snake 90° counterclockwise  
+
+Each rotation of the crown corresponds to a single turn of the snake.
 
 ### Digital Crown Navigation
 All menus support scrolling using the **Digital Crown** for a smooth watch interface experience.
