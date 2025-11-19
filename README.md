@@ -3,6 +3,8 @@
 HyperSnake is a minimalist, fast-paced Snake game designed specifically for the Apple Watch.  
 This project is a complete WatchOS port of my original Python version of the game (available here: [Python HyperSnake Repository](https://github.com/kv34dev/HyperSnake)).
 
+![photo-output](https://github.com/user-attachments/assets/6476af88-6e80-460c-a95b-4cfc496ecc9b)
+
 The interface, color selection menu, difficulty system, and overall style faithfully replicate the Python version while being fully optimized for Apple Watch controls and performance.
 
 ## Game Overview
