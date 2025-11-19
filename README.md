@@ -12,8 +12,7 @@ The interface, color selection menu, difficulty system, and overall style faithf
 Your goal is simple: eat food, grow longer, and avoid colliding with walls or your own body.
 
 This version is built with **SwiftUI** and uses:
-- Digital Crown scrolling support  
-- Swipe gestures for movement  
+- Digital Crown scrolling support
 - A compact UI optimized for 41 mm / 45 mm / 46 mm / 49 mm Apple Watch  
 - Smooth, timer-based game loop  
 - Customizable colors and difficulty levels  
